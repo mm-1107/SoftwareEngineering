@@ -15,25 +15,21 @@ values = randomValue.randint(0, 1000, size=(100))
 
 # triangulation
 triangulation = scipy.spatial.Delaunay(locations.T)
-# assimVertex = lambda index: triangulation.points[index]
-
 
 def assimVertex(index): return triangulation.points[index]
-
-
 triangleSet = map(assimVertex, triangulation.vertices)
 
 # liner
 plt.triplot(locations[0],
             locations[1],
-            triangles=triangleSet,
+            #triangles=triangleSet,
+            triangles=triangulation.simplices.copy(),
             color='black',
             linewidth=0.5)
 
 # triangle color
 index = 0
 for triangle in triangleSet:
-    print(triangle)
     ax.add_patch(plt.Polygon(triangle,
                              facecolor='0.3',
                              alpha=0.5))
@@ -41,4 +37,4 @@ for triangle in triangleSet:
 
 # output
 plt.savefig('triangular.png')
-plt.show()
+#plt.show()
