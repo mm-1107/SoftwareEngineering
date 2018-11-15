@@ -2,7 +2,7 @@ import scipy.stats
 import scipy.spatial
 from numpy.random import RandomState
 import matplotlib.pyplot as plt
-
+import sys
 
 def generateRandomJsonData():
     randomValue = RandomState(100000)
@@ -13,7 +13,7 @@ def generateRandomJsonData():
     return locations, values
 
 def getJsonData(jsonFile):
-    if jsnonFile:
+    if jsonFile:
         return None       
     else:
         return generateRandomJsonData() 
@@ -49,10 +49,12 @@ def plotTriangles(locations, triangles, imageName):
     plt.savefig(imageName)
 
 if __name__ == '__main__':
-    #create or add
-    #jsonFile
-    #imageName
-    locations, values = getJsonData(jsonFile)
+    
+    args = sys.argv
+    commandType = args[1]
+    jsonFile = args[2]
+    imageName = args[3]
+    locations, values = getJsonData(False)
     triangulation, triangles = calculationTriangles(locations)
     ax = detectColor(triangulation, locations, values)
     plotTriangles(locations, triangles, imageName)
