@@ -2,7 +2,7 @@ import scipy.stats
 import scipy.spatial
 from numpy.random import RandomState
 import matplotlib.pyplot as plt
-
+import sys
 
 def generateRandomJsonData():
     randomValue = RandomState(100000)
@@ -49,6 +49,10 @@ def plotTriangles(locations, triangles, imageName):
     plt.savefig(imageName)
 
 if __name__ == '__main__':
+    
+    args = sys.argv
+    type
+
     #create or add
     #jsonFile
     #imageName
