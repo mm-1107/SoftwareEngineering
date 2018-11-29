@@ -23,6 +23,7 @@ def generateRandomJsonData():
     # values of locations (values=[0,0,...])
     values = randomValue.randint(0, 1000, size=(100))
     return locations, values
+    #return [(locations[i][0],locations[i][1],values[i]) for i in range(len(locations)) ]
 
 def getJsonData(jsonFile):
     """.
@@ -53,8 +54,15 @@ def detectColor(triangulation, locations, values):
     def assimVertex(index): return triangulation.points[index]
     triangleSet = map(assimVertex, triangulation.vertices)
     # triangle color
+    print("Vertices list",triangulation.vertices)
+    print("Locations",locations)
     index = 0
-    for triangle in triangleSet:
+    for trianglePointIndexes in triangulation.simplices:
+        
+        triangle = locations.T[trianglePointIndexes]
+        print("Triangle",triangle)
+        colors = values[trianglePointIndexes]
+        print("Colors",colors)
         ax.add_patch(plt.Polygon(triangle,
                                  facecolor='0.3',
                                  alpha=0.5))
