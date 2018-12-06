@@ -4,7 +4,7 @@ from numpy.random import RandomState
 import matplotlib.pyplot as plt
 import sys
 
-def generateRandomJsonData():
+def generateRandomJsonData(seed=None):
     """To generate random JsonData.
     This return array, "locations" and "values".
     "locations" is two dimention array that have x and y coordinate.
@@ -16,7 +16,7 @@ def generateRandomJsonData():
     :return2 values
     :rtype array
     """
-    randomValue = RandomState(100000)
+    randomValue = RandomState(seed)
     # coordinate of locations (locations=[[x,...],[y,...]])
     locations = randomValue.randint(0, 500, size=(2, 100))
     print(type(locations))
