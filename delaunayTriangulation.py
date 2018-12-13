@@ -90,6 +90,8 @@ if __name__ == '__main__':
     #jsonFile = args[2]
     #imageName = args[3]
     locations, values = getJsonData(False)
-    triangulation, triangles = calculationTriangles(locations)
-    ax = detectColor(triangulation, locations, values)
+    triangulation, triangules = calculationTriangles(locations)
+    print("Triangulation", triangulation)
+    print("triangules",triangules)
+    #ax = detectColor(triangulation, locations, values)
     #plotTriangles(locations, triangles, imageName)

@@ -9,22 +9,49 @@ class delaunayTriangulation(unittest.TestCase):
 
     def test_generateRandomJsonData(self):
         """test method for generateRandomJsonData
-        value1 = 2
-        value2 = 6
-        expected = 8
-        actual = tashizan(value1, value2)
-        self.assertEqual(expected, actual)"""
-        actual = generateRandomJsonData()
+        1.check range
+        2.check length
+        """
+        expectedLocationsRange = 500
+        expectedValuesLength = 100
+        acutualLocations, actualValues = generateRandomJsonData()
+        maxX = max(acutualLocations[0])
+        minX = min(acutualLocations[0])
+        maxY = max(acutualLocations[1])
+        minY = min(acutualLocations[1])
+        maxValue = max(actualValues)
+        minValue = min(actualValues)
+        lengthX = len(acutualLocations[0])
+        lengthY = len(acutualLocations[1])
+        lengthValue = len(actualValues)
+        self.assertEqual(True , 0 <= minX and maxX <= 500)
+        self.assertEqual(True , 0 <= minY and maxY <= 500)
+        self.assertEqual(True , 0 <= minValue and maxValue <= 1000)
+        self.assertEqual(100 , lengthX)
+        self.assertEqual(100 , lengthY)
+        self.assertEqual(100 , lengthValue)
 
+    '''
     def test_getJsonData(self):
         """test method for getJsonData
+        1.check type(except string or boolean)
+        2.check length
         """
-        actual = getJsonData(jsonFile)
-        
+        actualLocations, actualValues = getJsonData(jsonFile)
+
+    def test_getJsonNoData(self):
+        """test method for getJsonData
+        1.check type(except string or boolean)
+        2.check length
+        """
+        acutualLocations, actualValues = getJsonData()
+
     def test_calculationTriangles(self):
         """test method for calculationTriangles
+        1.triangilation 
+        2.triangules have three index number
         """
-        actual = calculationTriangles(locations)
+        actualTriangulation, actualTriangles = calculationTriangles(locations)
 
     def test_detectColor(self):
         """test method for detectColor
@@ -34,7 +61,8 @@ class delaunayTriangulation(unittest.TestCase):
     def test_plotTriangles(self):
         """test method for plotTriangles
         """
-        actual = plotTriangles(locations, triangles, imageName)
+        plotTriangles(locations, triangles, imageName)
+      '''  
 
 if __name__ == "__main__":
     unittest.main()
