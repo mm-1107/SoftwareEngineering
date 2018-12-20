@@ -31,7 +31,7 @@ class delaunayTriangulation(unittest.TestCase):
         self.assertEqual(100 , lengthX)
         self.assertEqual(100 , lengthY)
         self.assertEqual(100 , lengthValue)
-
+    '''
   
     def test_getJsonData(self):
         """test method for getJsonData
@@ -39,7 +39,7 @@ class delaunayTriangulation(unittest.TestCase):
         2.check length
         """
         actualLocations, actualValues = getJsonData(jsonFile)
-    '''
+   
     def test_getJsonNoData(self):
         """test method for getJsonData
         1.check type(except string or boolean)
