@@ -1,3 +1,4 @@
+import HtmlTestRunner
 import unittest
 from delaunayTriangulation import generateRandomJsonData, getJsonData, calculationTriangles, detectColor, plotTriangles
 
@@ -31,14 +32,14 @@ class delaunayTriangulation(unittest.TestCase):
         self.assertEqual(100 , lengthY)
         self.assertEqual(100 , lengthValue)
 
-    '''
+  
     def test_getJsonData(self):
         """test method for getJsonData
         1.check type(except string or boolean)
         2.check length
         """
         actualLocations, actualValues = getJsonData(jsonFile)
-
+    '''
     def test_getJsonNoData(self):
         """test method for getJsonData
         1.check type(except string or boolean)
@@ -65,5 +66,5 @@ class delaunayTriangulation(unittest.TestCase):
       '''  
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='delaunay'))
     
