@@ -1,6 +1,7 @@
 import scipy.stats
 import scipy.spatial
 from numpy.random import RandomState
+import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import json
@@ -20,11 +21,13 @@ def generateRandomJsonData(seed=None):
     randomValue = RandomState(seed)
     # coordinate of locations (locations=[[x,...],[y,...]])
     locations = randomValue.randint(0, 500, size=(2, 100))
+    print(locations)
     print(type(locations))
     # values of locations (values=[0,0,...])
     values = randomValue.randint(0, 1000, size=(100))
+    print(values)
     return locations, values
-    #return [(locations[i][0],locations[i][1],values[i]) for i in range(len(locations)) ]
+
 
 def getJsonData(jsonFile):
     """.
@@ -36,17 +39,22 @@ def getJsonData(jsonFile):
     :rtype array
     """
     if jsonFile:
-        f = open('test.json', 'r')
+        f = open(jsonFile, 'r')
         jsonData = json.load(f)
         print(jsonData)
-        for json in jsonData:
-            print(json)
-        
-        #print(json.dumps(jsonData, sort_keys = True, indent = 4))
+        locations = np.array([[],[]])
+        values = np.array([])
+
+        for row in jsonData:
+            locations = np.concatenate((locations,np.array([[row["x"]],[row["y"]]])),axis=1)
+            values = np.append(values,row["value"])
+            print(locations)
+            print(values)
         f.close()
-        return None       
+        return locations, values
     else:
-        return generateRandomJsonData() 
+        return generateRandomJsonData()
+
 
 def calculationTriangles(locations):
     """[Calculation Triangles]
@@ -58,6 +66,11 @@ def calculationTriangles(locations):
     return triangulation, triangles
 
 
+def calculationStandardScore(color_list):
+    score = np.round_(50+10*(color_list-np.average(color_list))/np.std(color_list))
+    return score
+
+
 def detectColor(triangulation, locations, values):
     ax = plt.figure().add_subplot(111)
     def assimVertex(index): return triangulation.points[index]
@@ -66,14 +79,39 @@ def detectColor(triangulation, locations, values):
     print("Vertices list",triangulation.vertices)
     print("Locations",locations)
     index = 0
+    color_list = np.array([])
+
+    # create color_average list roop
     for trianglePointIndexes in triangulation.simplices:
-        
-        triangle = locations.T[trianglePointIndexes]
-        print("Triangle",triangle)
+        print("trianglePointIndexes",trianglePointIndexes)
         colors = values[trianglePointIndexes]
-        print("Colors",colors)
+        print(colors)
+        # テスト
+        color_average = np.average(colors)
+        print("color_average",color_average)
+        color_list = np.append(color_list,color_average)
+        print("color_list",color_list)
+
+    score = calculationStandardScore(color_list)
+    print("score",score)
+    # paint color roop
+    for trianglePointIndexes in triangulation.simplices:
+        triangle = locations.T[trianglePointIndexes]
+        if score[index]>75:
+            color = "red"
+        elif score[index]>60:
+            color = "pink"
+        elif score[index]>50:
+            color = "yellow"
+        elif score[index] > 40:
+            color = "green"
+        elif score[index]>30:
+            color = "blue"
+        else:
+            color = "black"
+        print(score[index],color)
         ax.add_patch(plt.Polygon(triangle,
-                                 facecolor='0.3',
+                                 facecolor=color,
                                  alpha=0.5))
         index += 1
     return ax
@@ -93,14 +131,16 @@ def plotTriangles(locations, triangles, imageName):
     plt.savefig(imageName)
 
 if __name__ == '__main__':
-    
+
     args = sys.argv
     commandType = args[1]
     jsonFile = args[2]#create or add
     imageName = args[3]
-    locations, values = getJsonData(False)
-    #triangulation, triangules = calculationTriangles(locations)
+    locations, values = getJsonData(jsonFile)
+    triangulation, triangles = calculationTriangles(locations)
     #print("Triangulation", triangulation)
     #print("triangules",triangules)
-    #ax = detectColor(triangulation, locations, values)
-    #plotTriangles(locations, triangles, imageName)
+    score = calculationStandardScore(values)
+    print(score)
+    ax = detectColor(triangulation, locations, values)
+    plotTriangles(locations, triangles, imageName)
