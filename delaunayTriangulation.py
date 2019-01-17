@@ -3,8 +3,9 @@ import scipy.spatial
 from numpy.random import RandomState
 import matplotlib.pyplot as plt
 import sys
+import json
 
-def generateRandomJsonData():
+def generateRandomJsonData(seed=None):
     """To generate random JsonData.
     This return array, "locations" and "values".
     "locations" is two dimention array that have x and y coordinate.
@@ -16,7 +17,7 @@ def generateRandomJsonData():
     :return2 values
     :rtype array
     """
-    randomValue = RandomState(100000)
+    randomValue = RandomState(seed)
     # coordinate of locations (locations=[[x,...],[y,...]])
     locations = randomValue.randint(0, 500, size=(2, 100))
     print(type(locations))
@@ -35,6 +36,14 @@ def getJsonData(jsonFile):
     :rtype array
     """
     if jsonFile:
+        f = open('test.json', 'r')
+        jsonData = json.load(f)
+        print(jsonData)
+        for json in jsonData:
+            print(json)
+        
+        #print(json.dumps(jsonData, sort_keys = True, indent = 4))
+        f.close()
         return None       
     else:
         return generateRandomJsonData() 
@@ -85,11 +94,13 @@ def plotTriangles(locations, triangles, imageName):
 
 if __name__ == '__main__':
     
-    #args = sys.argv
-    #commandType = args[1]
-    #jsonFile = args[2]
-    #imageName = args[3]
+    args = sys.argv
+    commandType = args[1]
+    jsonFile = args[2]#create or add
+    imageName = args[3]
     locations, values = getJsonData(False)
-    triangulation, triangles = calculationTriangles(locations)
-    ax = detectColor(triangulation, locations, values)
+    #triangulation, triangules = calculationTriangles(locations)
+    #print("Triangulation", triangulation)
+    #print("triangules",triangules)
+    #ax = detectColor(triangulation, locations, values)
     #plotTriangles(locations, triangles, imageName)
