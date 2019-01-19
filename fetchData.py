@@ -5,32 +5,50 @@ def getHTMLcontents(url):
     url = url
     html = requests.get(url)
     soup = BeautifulSoup(html.content, "lxml")
-    return soup#.contents
+    return soup
 
-if __name__ == '__main__':
-    mapsData = getHTMLcontents("http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm")
-    #populationData = getHTMLcontents("http://area-info.jpn.org/FornPerPop130001.html")
-    mapsData = mapsData.select('body')
+def mapsFormatJson(mainData):
     i = 0
-    mainJson = {}
+    mainJson = []
     subJson = {}
-    for data in mapsData[0]:
+    for data in mainData[0]:
+        #print(subJson)
         if(len(subJson)==3):
-            mainJson.update({i:subJson})
+            mainJson.append(subJson)
             subJson={}
-        if(12 <= i and i <= 257 and i%4 == 0):
-            subJson.update({"name":data})
+        elif(12 <= i and i <= 257 and i%4 == 0):
+            subJson.update({"name":data.rstrip("\r\n")})
         elif(12 <= i and i <= 257 and i%4 == 1):
             j = 0
             for table in data:
-                #if(j==3 or j==5):
-                #print(j)
-                #print(table)
+                if(j==3 or j==5):
+                    l = 0
+                    for td in table:
+                        if(l==3):
+                            if(j==3):
+                                subJson.update({"y":int(td.string[1:-7])})
+                            elif(j==5):
+                                subJson.update({"x":int(td.string[1:-7])})
+                        l += 1
                 j += 1
         i += 1
-    print(mainJson)
-    
-#12,16,20
-#13,17,21
+    return mainJson
 
-    #print(populationData)
+def populationFormatJson(mainData):
+    i = 0
+    for data in mainData[0]:
+        print(i)
+        print(data)
+        i += 1
+    return 1
+
+
+if __name__ == '__main__':
+    #mapsData = getHTMLcontents("http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm")
+    #mapsData = mapsData.select('body')
+    #mapsJson = mapsFormatJson(mapsData)
+    #print(mapsJson)
+    populationData = getHTMLcontents("http://area-info.jpn.org/FornPerPop130001.html")
+    populationData = populationData.select('body')
+    populationJson = populationFormatJson(populationData)
+    #print(populationJson)
