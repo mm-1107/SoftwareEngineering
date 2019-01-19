@@ -26,9 +26,9 @@ def mapsFormatJson(mainData):
                     for td in table:
                         if(l==3):
                             if(j==3):
-                                subJson.update({"y":int(td.string[1:-7])})
+                                subJson.update({"y":float(td.string[1:-7]) + (float(td.string[5:-4])*60.0 + float(td.string[8:-1]))/3600.0})
                             elif(j==5):
-                                subJson.update({"x":int(td.string[1:-7])})
+                                subJson.update({"x":float(td.string[1:-7]) + (float(td.string[5:-4])*60.0 + float(td.string[8:-1]))/3600.0})
                         l += 1
                 j += 1
         i += 1
@@ -44,11 +44,11 @@ def populationFormatJson(mainData):
 
 
 if __name__ == '__main__':
-    #mapsData = getHTMLcontents("http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm")
-    #mapsData = mapsData.select('body')
-    #mapsJson = mapsFormatJson(mapsData)
-    #print(mapsJson)
-    populationData = getHTMLcontents("http://area-info.jpn.org/FornPerPop130001.html")
-    populationData = populationData.select('body')
-    populationJson = populationFormatJson(populationData)
+     mapsData = getHTMLcontents("http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm")
+     mapsData = mapsData.select('body')
+     mapsJson = mapsFormatJson(mapsData)
+     print(mapsJson)
+    #populationData = getHTMLcontents("http://area-info.jpn.org/FornPerPop130001.html")
+    #populationData = populationData.select('body')
+    #populationJson = populationFormatJson(populationData)
     #print(populationJson)
