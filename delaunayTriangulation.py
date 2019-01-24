@@ -48,8 +48,8 @@ def getJsonData(jsonFile):
         for row in jsonData:
             locations = np.concatenate((locations,np.array([[row["x"]],[row["y"]]])),axis=1)
             values = np.append(values,row["value"])
-            print(locations)
-            print(values)
+            print("locations",locations)
+            print("values",values)
         f.close()
         return locations, values
     else:
@@ -97,10 +97,8 @@ def detectColor(triangulation, locations, values):
     # paint color roop
     for trianglePointIndexes in triangulation.simplices:
         triangle = locations.T[trianglePointIndexes]
-        if score[index]>75:
+        if score[index]>65:
             color = "red"
-        elif score[index]>60:
-            color = "pink"
         elif score[index]>50:
             color = "yellow"
         elif score[index] > 40:
