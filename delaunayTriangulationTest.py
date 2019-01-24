@@ -1,6 +1,6 @@
 import HtmlTestRunner
 import unittest
-from delaunayTriangulation import generateRandomJsonData, getJsonData, calculationTriangles, detectColor, plotTriangles
+from delaunayTriangulation import generateRandomJsonData, getJsonData, calculationStandardScore,calculationTriangles, detectColor, plotTriangles
 
 # This is test file.
 
@@ -14,8 +14,9 @@ class delaunayTriangulation(unittest.TestCase):
         2.check length
         """
         expectedLocationsRange = 500
+        expectedValuesRange = 1000
         expectedValuesLength = 100
-        acutualLocations, actualValues = generateRandomJsonData()
+        acutualLocations,actualValues= generateRandomJsonData()
         maxX = max(acutualLocations[0])
         minX = min(acutualLocations[0])
         maxY = max(acutualLocations[1])
@@ -25,44 +26,85 @@ class delaunayTriangulation(unittest.TestCase):
         lengthX = len(acutualLocations[0])
         lengthY = len(acutualLocations[1])
         lengthValue = len(actualValues)
-        self.assertEqual(True , 0 <= minX and maxX <= 500)
-        self.assertEqual(True , 0 <= minY and maxY <= 500)
-        self.assertEqual(True , 0 <= minValue and maxValue <= 1000)
-        self.assertEqual(100 , lengthX)
-        self.assertEqual(100 , lengthY)
-        self.assertEqual(100 , lengthValue)
+        self.assertEqual(True , 0 <= minX and
+                         maxX <= expectedLocationsRange)
+        self.assertEqual(True , 0 <= minY and
+                         maxY <= expectedLocationsRange)
+        self.assertEqual(True , 0 <= minValue and
+                         maxValue <= expectedValuesRange)
+        self.assertEqual(expectedValuesLength , lengthX)
+        self.assertEqual(expectedValuesLength , lengthY)
+        self.assertEqual(expectedValuesLength , lengthValue)
 
     def test_getJsonData(self):
-        """test method for getJsonData
-        1.check type(except string or boolean)
-        2.check length
+        """test method for getJsonData(with argument)
+        1.check length(1st dimension)
+        2.check length(2nd dimension)※certainly 3 length
         """
         jsonFile = "./data/test_data.json"
+        expected1stDimensionLength = 2
+        expected2ndDimensionLength = 7
         actualLocations, actualValues = getJsonData(jsonFile)
+        self.assertEqual(len(actualLocations[0]),
+                         len(actualValues))
+        self.assertEqual(len(actualLocations[1]),
+                         len(actualValues))
+        self.assertEqual(expected1stDimensionLength,
+                         len(actualLocations))
+        self.assertEqual(expected2ndDimensionLength,
+                         len(actualLocations[0]))
+        self.assertEqual(expected2ndDimensionLength,
+                         len(actualLocations[1]))
 
 
-    # def test_getJsonNoData(self):
-    #     """test method for getJsonData
-    #     1.check type(except string or boolean)
-    #     2.check length
-    #     """
-    #     acutualLocations, actualValues = getJsonData()
+    def test_getJsonNoData(self):
+        """test method for getJsonData(without argument)
+        1.check range
+        2.check length
+        """
+        expectedLocationsRange = 500
+        expectedValuesRange = 1000
+        expectedValuesLength = 100
+        acutualLocations, actualValues = getJsonData(None)
+        maxX = max(acutualLocations[0])
+        minX = min(acutualLocations[0])
+        maxY = max(acutualLocations[1])
+        minY = min(acutualLocations[1])
+        maxValue = max(actualValues)
+        minValue = min(actualValues)
+        lengthX = len(acutualLocations[0])
+        lengthY = len(acutualLocations[1])
+        lengthValue = len(actualValues)
+        self.assertEqual(True , 0 <= minX and
+                         maxX <= expectedLocationsRange)
+        self.assertEqual(True , 0 <= minY and
+                         maxY <= expectedLocationsRange)
+        self.assertEqual(True , 0 <= minValue and
+                         maxValue <= expectedValuesRange)
+        self.assertEqual(expectedValuesLength , lengthX)
+        self.assertEqual(expectedValuesLength , lengthY)
+        self.assertEqual(expectedValuesLength , lengthValue)
 
+    def test_calculationTriangles(self):
+        """test method for calculationTriangles
+        1.triangilation
+        2.triangules have three index number
+        """
+        locationsList = [[10., 50., 30., 20., 40., 60.],
+                         [3., 5., 2., 1., 4., 6.]]
+        #actualTriangulation, actualTriangles = calculationTriangles(locationsList)
+        #self.assertEqual(locationsList,actualTriangulation)
+    
     def calculationStandardScore(self):
-        color_list = [ 64.33333333 331.         204.         323.33333333 470.66666667
- 604.         344.33333333 324.          77.66666667  57.33333333
- 350.         633.33333333 500.        ]
+        """test method for calculationStandardScore
+        1.check calculation
+        """
+        colorList = [64.33333333,331.,204.,323.33333333,470.66666667,604.,344.33333333,324.,77.66666667,57.33333333,350.,633.33333333,500.]
         acutual = calculationStandardScore(color_list)
-        score = [36. 50. 43. 50. 58. 65. 51. 50. 36. 35. 51. 66. 59.]
+        score = [36., 50., 43., 50., 58., 65., 51., 50., 36., 35., 51., 66., 59.]
         self.assertEqual(score,actual)
 
-    # def test_calculationTriangles(self):
-    #     """test method for calculationTriangles
-    #     1.triangilation
-    #     2.triangules have three index number
-    #     """
-    #     actualTriangulation, actualTriangles = calculationTriangles(locations)
-    #
+ 
     # def test_detectColor(self):
     #     """test method for detectColor
     #     """
