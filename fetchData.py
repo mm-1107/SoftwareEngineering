@@ -9,30 +9,23 @@ def getHTMLcontents(url):
     return soup
 
 def mapsFormatJson(mainData):
-    i = 0
+    i=0
     mainJson = []
-    subJson = {}
-    for data in mainData[0]:
-        #print(subJson)
-        if(len(subJson)==3):
-            mainJson.append(subJson)
-            subJson={}
-        elif(12 <= i and i <= 257 and i%4 == 0):
-            subJson.update({"name":data.rstrip("\r\n")})
-        elif(12 <= i and i <= 257 and i%4 == 1):
-            j = 0
-            for table in data:
-                if(j==3 or j==5):
-                    l = 0
-                    for td in table:
-                        if(l==3):
-                            if(j==3):
-                                subJson.update({"y":float(td.string[1:-7]) + (float(td.string[5:-4])*60.0 + float(td.string[8:-1]))/3600.0})
-                            elif(j==5):
-                                subJson.update({"x":float(td.string[1:-7]) + (float(td.string[5:-4])*60.0 + float(td.string[8:-1]))/3600.0})
-                        l += 1
-                j += 1
+    nameData = mainData.findAll("td",{"align":"center"})
+    xyData = mainData.findAll("td",{"align":"right"})
+    for data in nameData:
+        if(i%7==0):
+            mainJson.append({"name":data.get_text()[:-1]})
         i += 1
+    j=0
+    for data in xyData:
+        if(j%10==0):
+            print(data)
+            #mainJson[int(j/10)].update({"y":float(data.get_text()[:3]) + (float(data.get_text()[4:6])*60.0 + float(data.get_text()[-3:-1]))/3600.0})
+        if(j%10==5):
+            print(data)
+            #mainJson[int(j/10)].update({"x":float(data.get_text()[:2]) + (float(data.get_text()[3:5])*60.0 + float(data.get_text()[-3:-1]))/3600.0})
+        j += 1
     return mainJson
 
 def populationFormatJson(mainData):
@@ -66,13 +59,18 @@ def createFormatJsonData(mapsData,populationData):
 
 if __name__ == '__main__':
     #Create maps data json.
+    #Tokyo
     #mapsData = getHTMLcontents("http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm")
-    #mapsData = mapsData.select('body')
+    #Japan
+    #mapsData = getHTMLcontents("http://www.gsi.go.jp/KOKUJYOHO/CENTER/zenken.htm")
     #mapsJson = mapsFormatJson(mapsData)
     #print(mapsJson)
 
     #Create population data json.
+    #Tokyo
     #populationData = getHTMLcontents("http://area-info.jpn.org/FornPerPop130001.html")
+    #Japan
+    #populationData = getHTMLcontents("http://area-info.jpn.org/FornPerPop.html")
     #populationData = populationData.select('body')
     #populationJson = populationFormatJson(populationData)
     #print(populationJson)
@@ -82,3 +80,4 @@ if __name__ == '__main__':
     populationJsonData = getJsonData("data/populationData.json")
     formatData = createFormatJsonData(mapsJsonData,populationJsonData)
     print(formatData)
+
