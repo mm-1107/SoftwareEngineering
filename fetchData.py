@@ -59,7 +59,7 @@ def createFormatJsonData(mapsData,populationData):
     for population in populationData:
         for maps in mapsData:
             if(maps["name"] == population["name"]):
-                jsonData.append({"x":maps["x"],"y":maps["y"],"value":population["value"]})
+                jsonData.append({"x":maps["y"],"y":maps["x"],"value":population["value"]})
                 break
     return jsonData
 
