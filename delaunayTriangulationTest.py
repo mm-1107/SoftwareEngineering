@@ -95,7 +95,7 @@ class delaunayTriangulation(unittest.TestCase):
                                   [400., 22., 219., 56., 456., 56., 500.]])
         actualTriangulation, actualTriangles = calculationTriangles(locationsList)
         expectedTriangulationType = actualTriangulation.vertices
-        #self.assertEqual(expectedTriangulationType,actualTriangles)
+        self.assertEqual(expectedTriangulationType,actualTriangles)
     
     def calculationStandardScore(self):
         """test method for calculationStandardScore

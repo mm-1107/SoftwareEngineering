@@ -1,22 +1,37 @@
-# ソフトウェア工学2018
-- 母点の平均値によってドロネー図を色分けするスクリプトを作ってみるプロジェクト
+# Software Engineering 2018
+- A project to try to make a script to colorize the Delaunay figure according to the mean value of the points.
 
-## バージョン
+## Version
 - python 3.6.0
 
-## 事前準備
+## Preparation
 
 ```
 [~/work/SoftwareEngineering$] python -m venv env
 [~/work/SoftwareEngineering$] source env/bin/activate
 [~/work/SoftwareEngineering$] pip install -r requirements.txt
 ```
-- matplotlibでエラーが出たら[こちら](https://qiita.com/Kodaira_/items/1a3b801c7a5a41c9ce49)
+- If an error occurs in matplotlib[HERE](https://qiita.com/Kodaira_/items/1a3b801c7a5a41c9ce49)
 
-## 構成
+## Constitution
 
 ```
 SoftwareEngineering /
-|`- delaunayTriangulation.py  # ドロネー図作成スクリプト
-|`- plot_delaunay.py          # ドロネー図作成スクリプト by mm-1107
+┣ delaunayTriangulation.py  # Delaunay diagram creation script
+┣ delaunayTriangulationTest.py  # Test of delaunay diagram creation script
+┣ fetchData.py		  # Create format json data by Scraping
+┣ plot_delaunay.py          # Delaunay diagram creation script by mm-1107
+┣ requirements.txt	      ＃ When necessary for environment construction
+┣ data /
+┃ 	┣ test_data.json	# {x,y,value}
+┃ 	┣ mapsData.json	# {name,x,y}
+┃ 	┣ populationData.json	# {name,value}
+┃ 	┣ productionData1.json	# {x,y,value} Data of Tokyo
+┃ 	┗ productionData2.json	# {x,y,value} Data of Japan
+┗ output /
+ 	┣ test_data.png	# Created by data/test_data.json
+	┣ triangular.png	# Created by random data
+	┣ triangular01.png	# Created by random data
+	┣ populationRatioInTokyo.png	# Created by data/productionData1.json
+ 	┗ populationRatioInJapan.png	# Created by data/productionData2.json
 ```
