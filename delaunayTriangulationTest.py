@@ -1,5 +1,6 @@
 import HtmlTestRunner
 import unittest
+import numpy as np
 from delaunayTriangulation import generateRandomJsonData, getJsonData, calculationStandardScore,calculationTriangles, detectColor, plotTriangles
 
 # This is test file.
@@ -90,10 +91,11 @@ class delaunayTriangulation(unittest.TestCase):
         1.triangilation
         2.triangules have three index number
         """
-        locationsList = [[10., 50., 30., 20., 40., 60.],
-                         [3., 5., 2., 1., 4., 6.]]
-        #actualTriangulation, actualTriangles = calculationTriangles(locationsList)
-        #self.assertEqual(locationsList,actualTriangulation)
+        locationsList = np.array([[100., 438., 412., 123., 234., 31., 451.],
+                                  [400., 22., 219., 56., 456., 56., 500.]])
+        actualTriangulation, actualTriangles = calculationTriangles(locationsList)
+        expectedTriangulationType = actualTriangulation.vertices
+        #self.assertEqual(expectedTriangulationType,actualTriangles)
     
     def calculationStandardScore(self):
         """test method for calculationStandardScore
