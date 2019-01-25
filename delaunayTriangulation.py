@@ -131,9 +131,8 @@ def plotTriangles(locations, triangles, imageName):
 if __name__ == '__main__':
 
     args = sys.argv
-    commandType = args[1]
-    jsonFile = args[2]#create or add
-    imageName = args[3]
+    jsonFile = args[1]
+    imageName = args[2]
     locations, values = getJsonData(jsonFile)
     triangulation, triangles = calculationTriangles(locations)
     print("Triangulation", triangulation)
