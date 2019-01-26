@@ -8,6 +8,7 @@ It is a figure which is obtained for a set of discretely distributed points with
 
 For example, if you use data/productionData1.json that value is population ratio of foreigner in Tokyo
 , you can get the following image.
+
 ![Alt text](/output/populationRatioInTokyo.png)
 
 <font color="red">Red</font> : high
