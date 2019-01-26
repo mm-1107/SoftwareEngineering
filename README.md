@@ -12,8 +12,11 @@ For example, if you use data/productionData1.json that value is population ratio
 ![Alt text](/output/populationRatioInTokyo.png)
 
 <font color="red">Red</font> : high
+
 <font color="yellow">Yellow</font> : mid-high
+
 <font color="green">Green</font> : mid-low
+
 <font color="blue">Blue</font> : low
 
 ## Member
