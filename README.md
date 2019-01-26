@@ -1,6 +1,5 @@
 # Software Engineering 2018
-A project to try to make a script to colorize the Delaunay figure according to the mean value of the points.
-
+A project to try to make a script to colorize the Delaunay figure according to the mean value of the points.  
 Value is high if it is close to red, value is small if it is close to black.
 
 ## What is 'Delaunay'?
@@ -25,11 +24,12 @@ It is a figure which is obtained for a set of discretely distributed points with
 - Please install scipy, RandomState, numpy, matplotlib, sys, json if necessary.
 
 ## How to create Delaunay figure
-1. Prepare a json file with x, y, value in key.
-  _※This is sample of json file_
-  _※Please use double quotation in key because error occurs when using single quotation._
-```
+1. Prepare a json file with x, y, value in key.  
+_※This is sample of json file_  
+_※Please use double quotation in key because error occurs when using single quotation._  
 **○○○.json**
+```
+
 [{"x": 100, "y": 400, "value": 50},
  {"x": 438, "y": 22,  "value": 800},
  {"x": 412, "y": 219, "value": 120},
@@ -39,7 +39,7 @@ It is a figure which is obtained for a set of discretely distributed points with
 ```
 2. Please enter the following command at terminal.
 ```
-[~/SoftwareEngineering$] python delaunayTriangulation.py (Json Data File) (Output Delaunay Image Name)
+[~/SoftwareEngineering$] python delaunayTriangulation.py [Json Data File] [Output Delaunay Image Name]
 ```
 
 ## Constitution

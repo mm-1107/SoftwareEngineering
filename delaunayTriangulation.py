@@ -140,4 +140,4 @@ if __name__ == '__main__':
     score = calculationStandardScore(values)
     print(score)
     ax = detectColor(triangulation, locations, values)
-    #plotTriangles(locations, triangles, imageName)
+    plotTriangles(locations, triangles, imageName)
