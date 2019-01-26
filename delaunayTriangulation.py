@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import json
+import argparse
 
 def generateRandomJsonData(seed=None):
     """To generate random JsonData.
@@ -21,11 +22,11 @@ def generateRandomJsonData(seed=None):
     randomValue = RandomState(seed)
     # coordinate of locations (locations=[[x,...],[y,...]])
     locations = randomValue.randint(0, 500, size=(2, 100))
-    print(locations)
-    print(type(locations))
+    # print(locations)
+    # print(type(locations))
     # values of locations (values=[0,0,...])
     values = randomValue.randint(0, 1000, size=(100))
-    print(values)
+    # print(values)
     return locations, values
 
 
@@ -41,15 +42,13 @@ def getJsonData(jsonFile):
     if jsonFile:
         f = open(jsonFile, 'r')
         jsonData = json.load(f)
-        print(jsonData)
+        # print(jsonData)
         locations = np.array([[],[]])
         values = np.array([])
 
         for row in jsonData:
             locations = np.concatenate((locations,np.array([[row["x"]],[row["y"]]])),axis=1)
             values = np.append(values,row["value"])
-            print("locations",locations)
-            print("values",values)
         f.close()
         return locations, values
     else:
@@ -76,24 +75,19 @@ def detectColor(triangulation, locations, values):
     def assimVertex(index): return triangulation.points[index]
     triangleSet = map(assimVertex, triangulation.vertices)
     # triangle color
-    print("Vertices list",triangulation.vertices)
-    print("Locations",locations)
+    # print("Vertices list",triangulation.vertices)
+    # print("Locations",locations)
     index = 0
     color_list = np.array([])
 
     # create color_average list roop
     for trianglePointIndexes in triangulation.simplices:
-        print("trianglePointIndexes",trianglePointIndexes)
         colors = values[trianglePointIndexes]
-        print(colors)
         # テスト
         color_average = np.average(colors)
-        print("color_average",color_average)
         color_list = np.append(color_list,color_average)
-        print("color_list",color_list)
 
     score = calculationStandardScore(color_list)
-    print("score",score)
     # paint color roop
     for trianglePointIndexes in triangulation.simplices:
         triangle = locations.T[trianglePointIndexes]
@@ -107,7 +101,6 @@ def detectColor(triangulation, locations, values):
             color = "blue"
         else:
             color = "black"
-        print(score[index],color)
         ax.add_patch(plt.Polygon(triangle,
                                  facecolor=color,
                                  alpha=0.5))
@@ -129,15 +122,25 @@ def plotTriangles(locations, triangles, imageName):
     plt.savefig(imageName)
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+                prog="delaunayTriangulation.py",
+                usage="python delaunayTriangulation.py -j data/test_data.json -i output/test.png",
+                description="colorize the Delaunay figure according to the mean value of the points.",
+                add_help = True
+                )
+    parser.add_argument("-j","--json",
+                        help="json file directory"
+                        )
+    parser.add_argument("-i","--image",
+                        help="output image directory",
+                        required = True
+                        )
+    args = parser.parse_args()
+    jsonFile = args.json
+    imageName = args.image
 
-    args = sys.argv
-    jsonFile = args[1]
-    imageName = args[2]
     locations, values = getJsonData(jsonFile)
     triangulation, triangles = calculationTriangles(locations)
-    print("Triangulation", triangulation)
-    print("triangules",triangles)
     score = calculationStandardScore(values)
-    print(score)
     ax = detectColor(triangulation, locations, values)
     plotTriangles(locations, triangles, imageName)

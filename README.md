@@ -6,6 +6,19 @@ Value is high if it is close to red, value is small if it is close to black.
 It is a figure which is obtained for a set of discretely distributed points within the distance space and which connects them by sides according to a certain method.
 ![Alt text](/output/triangular.png)
 
+For example, if you use data/productionData1.json that value is population ratio of foreigner in Tokyo
+, you can get the following image.
+
+![Alt text](/output/populationRatioInTokyo.png)
+
+**<font color="red">Red</font> : high**
+
+**<font color="yellow">Yellow</font> : mid-high**
+
+**<font color="green">Green</font> : mid-low**
+
+**<font color="blue">Blue</font> : low**
+
 ## Member
 - 1620501 Akari Iijima
 - 1620536 Marin Matsumoto
@@ -28,6 +41,7 @@ It is a figure which is obtained for a set of discretely distributed points with
 _※This is sample of json file_  
 _※Please use double quotation in key because error occurs when using single quotation._  
 **○○○.json**
+
 ```
 
 [{"x": 100, "y": 400, "value": 50},
@@ -37,9 +51,17 @@ _※Please use double quotation in key because error occurs when using single qu
   :
 ]
 ```
+
 2. Please enter the following command at terminal.
+
 ```
-[~/SoftwareEngineering$] python delaunayTriangulation.py [Json Data File] [Output Delaunay Image Name]
+[~/SoftwareEngineering$] python delaunayTriangulation.py -j [Json Data File] -i [Output Delaunay Image Name]
+```
+
+  if you want to try to run random data, please enter the following command.
+
+```
+[~/SoftwareEngineering$] python delaunayTriangulation.py -i [Output Delaunay Image Name]
 ```
 
 ## Constitution
@@ -49,7 +71,6 @@ SoftwareEngineering /
 ┣ delaunayTriangulation.py      # Delaunay diagram creation script
 ┣ delaunayTriangulationTest.py  # Test of delaunay diagram creation script
 ┣ fetchData.py                  # Create format json data by Scraping
-┣ plot_delaunay.py              # Delaunay diagram creation script by mm-1107
 ┣ requirements.txt              # When necessary for environment construction
 ┣ data /
 ┃ 	┣ test_data.json       # {x,y,value}
