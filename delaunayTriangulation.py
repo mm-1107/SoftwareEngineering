@@ -69,7 +69,7 @@ def calculationTriangles(locations):
     :return1 triangulation
     :rtype scipy.spatial.qhull.Delaunay
     :return2 triangles
-    :rtype ndarray
+    :rtype 2darray
     """
     # triangulation
     triangulation = scipy.spatial.Delaunay(locations.T)
@@ -83,9 +83,9 @@ def calculationStandardScore(colorList):
     so that average point 50 standard deviation 10.
 
     :param colorList
-    :type ndarray
+    :type 1darray
     :return score
-    :rtype ndarray
+    :rtype 1darray
     """
     score = np.round_(50+10*(colorList-np.average(colorList))/np.std(colorList))
     return score
@@ -102,8 +102,10 @@ def detectColor(triangulation, locations, values):
     :type2 2darray
     :param3 values
     :type3 1darray
-    :return ax
+    :return1 ax
     :rtype matplotlib.axes._subplots.AxesSubplot
+    :return2 colors
+    :rtype 2darray
     """
     ax = plt.figure().add_subplot(111)
     def assimVertex(index): return triangulation.points[index]
@@ -119,33 +121,40 @@ def detectColor(triangulation, locations, values):
         colorList = np.append(colorList,colorAverage)
 
     score = calculationStandardScore(colorList)
+    colors = []
     # paint color roop
     for trianglePointIndexes in triangulation.simplices:
         triangle = locations.T[trianglePointIndexes]
         if score[index]>65:
             color = "red"
+            colors.append([score[index],color])
         elif score[index]>50:
             color = "yellow"
+            colors.append([score[index],color])
         elif score[index] > 40:
             color = "green"
+            colors.append([score[index],color])
         elif score[index]>30:
             color = "blue"
+            colors.append([score[index],color])
         else:
             color = "black"
+            colors.append([score,color])
         ax.add_patch(plt.Polygon(triangle,
                                  facecolor=color,
                                  alpha=0.5))
         index += 1
-    return ax
+    return ax, colors
 
 
 def plotTriangles(locations, triangles, imageName):
-    """To deal with plotting the triangles by matplotlib.
+    """To deal with plotting the triangles by matplotlib 
+    and create [imageName].png
 
     :param1 locations
     :type1 2darray
     :param2 triangles
-    :type2 ndarray
+    :type2 2darray
     :param3 imageName
     :type3 str
     :return none
@@ -178,5 +187,5 @@ if __name__ == '__main__':
 
     locations, values = getJsonData(jsonFile)
     triangulation, triangles = calculationTriangles(locations)
-    ax = detectColor(triangulation, locations, values)
+    ax, colors = detectColor(triangulation, locations, values)
     plotTriangles(locations, triangles, imageName)

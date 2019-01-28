@@ -1,14 +1,15 @@
 import HtmlTestRunner
 import unittest
+import matplotlib.pyplot as plt
 import numpy as np
+import os
+import scipy.spatial
 from delaunayTriangulation import generateRandomJsonData, getJsonData, calculationStandardScore,calculationTriangles, detectColor, plotTriangles
 
 # This is test file.
-
 class delaunayTriangulation(unittest.TestCase):
     """test class of delaunayTriangulation.py
     """
-
     def test_generateRandomJsonData(self):
         """test method for generateRandomJsonData
         1.check range
@@ -42,7 +43,7 @@ class delaunayTriangulation(unittest.TestCase):
         1.check length(1st dimension)
         2.check length(2nd dimension)※certainly 3 length
         """
-        jsonFile = "./data/test_data.json"
+        jsonFile = "./data/testData.json"
         expected1stDimensionLength = 2
         expected2ndDimensionLength = 7
         actualLocations, actualValues = getJsonData(jsonFile)
@@ -88,34 +89,88 @@ class delaunayTriangulation(unittest.TestCase):
 
     def test_calculationTriangles(self):
         """test method for calculationTriangles
-        1.triangilation
-        2.triangules have three index number
+        1.check having same triangiles
+        2.check length
         """
-        locationsList = np.array([[100., 438., 412., 123., 234., 31., 451.],
-                                  [400., 22., 219., 56., 456., 56., 500.]])
+        locationsList = np.array([[1., 1., 2., 3., 5.],
+                                  [1., 3., 1., 4., 2.]])
         actualTriangulation, actualTriangles = calculationTriangles(locationsList)
-        expectedTriangulationType = actualTriangulation.vertices
-        self.assertEqual(expectedTriangulationType,actualTriangles)
+        expectedTriangles = np.array([[0, 2, 1],
+                                      [3, 1, 2],
+                                      [2, 3, 4]])
+        actualTriangulationLength = len(actualTriangulation.vertices)
+        actualTrianglesLength = len(actualTriangles)
+        expectedTrianglesLength = len(expectedTriangles) 
+        # sort each element
+        for data in actualTriangulation.vertices: data = data.sort()
+        for data in actualTriangles: data = data.sort()
+        for data in expectedTriangles: data = data.sort()
+        # create set
+        actualTriangulationVerticesSet = set(((actualTriangulation.vertices[i,0],
+                                               actualTriangulation.vertices[i,1],
+                                               actualTriangulation.vertices[i,2])
+                                              for i in range(len(actualTriangulation.vertices))))
+        actualTrianglesSet = set(((actualTriangles[i,0],
+                                   actualTriangles[i,1],
+                                   actualTriangles[i,2])
+                                  for i in range(len(actualTriangles))))
+        expectedTrianglesSet = set(((expectedTriangles[i,0],
+                                     expectedTriangles[i,1],
+                                     expectedTriangles[i,2])
+                                    for i in range(len(expectedTriangles))))
+        self.assertEqual(actualTriangulationVerticesSet, actualTrianglesSet)
+        self.assertEqual(actualTriangulationVerticesSet, expectedTrianglesSet)
+        self.assertEqual(actualTrianglesSet, expectedTrianglesSet)
+        self.assertEqual(actualTriangulationLength, actualTrianglesLength)
+        self.assertEqual(actualTriangulationLength, expectedTrianglesLength)
+        self.assertEqual(actualTrianglesLength, expectedTrianglesLength)
     
     def calculationStandardScore(self):
         """test method for calculationStandardScore
         1.check calculation
+        2.check length
         """
-        colorList = [64.33333333,331.,204.,323.33333333,470.66666667,604.,344.33333333,324.,77.66666667,57.33333333,350.,633.33333333,500.]
-        acutual = calculationStandardScore(color_list)
-        score = [36., 50., 43., 50., 58., 65., 51., 50., 36., 35., 51., 66., 59.]
-        self.assertEqual(score,actual)
+        colorList = [5., 10., 30., 25., 35.]
+        actualScore = calculationStandardScore(color_list)
+        actualScoreLength = len(actualScore)
+        expectedScore = [36., 41., 58., 53., 62.]
+        expectedScoreLength = len(expectedScore)
+        self.assertEqual(expectedScore,actualScore)
+        self.assertEqual(expectedScoreLength,actualScoreLength)
 
- 
     def test_detectColor(self):
         """test method for detectColor
+        1.check having same colors
+        2.check length
         """
-        actual = detectColor(triangulation, locations, values)
+        locations = np.array([[1., 1., 2., 3., 5.],
+                              [1., 3., 1., 4., 2.]])
+        values = np.array([5., 10., 30., 25., 35.])
+        triangulation = scipy.spatial.Delaunay(locations.T)
+        expectedColors = [[49.,"green"],[63.,"yellow"],[38.,"blue"]]
+        expectedColorsLength = len(expectedColors)
+        actualAx, actualColors = detectColor(triangulation, locations, values)
+        actualColorsLength = len(actualColors)
+        self.assertEqual(expectedColors.sort(),actualColors.sort())
+        self.assertEqual(expectedColorsLength,actualColorsLength)
     
     def test_plotTriangles(self):
         """test method for plotTriangles
+        1.check weather an image exists or not
         """
-        plotTriangles(locations, triangles, imageName)
+        locations = np.array([[1., 1., 2., 3., 5.],
+                              [1., 3., 1., 4., 2.]])
+        triangles = np.array([[0, 2, 1],
+                              [3, 1, 2],
+                              [2, 3, 4]])
+        expectedImageName = "output/unitTestExpectedImage"
+        plotTriangles(locations, triangles, expectedImageName)
+        self.assertEqual(os.path.exists("output/unitTestExpectedImage.png"),True)
+        os.remove("output/unitTestExpectedImage.png")
+        
 
 if __name__ == "__main__":
     unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='delaunay'))
+
+
+    
