@@ -141,6 +141,5 @@ if __name__ == '__main__':
 
     locations, values = getJsonData(jsonFile)
     triangulation, triangles = calculationTriangles(locations)
-    score = calculationStandardScore(values)
     ax = detectColor(triangulation, locations, values)
     plotTriangles(locations, triangles, imageName)
