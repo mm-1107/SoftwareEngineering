@@ -35,9 +35,9 @@ Deviation&nbsp;value&nbsp;is&nbsp;that&nbsp;score&nbsp;when&nbsp;adjustment&nbsp
 so&nbsp;that&nbsp;average&nbsp;point&nbsp;50&nbsp;standard&nbsp;deviation&nbsp;10.<br>
 &nbsp;<br>
 :param&nbsp;colorList<br>
-:type&nbsp;ndarray<br>
+:type&nbsp;1darray<br>
 :return&nbsp;score<br>
-:rtype&nbsp;ndarray</tt></dd></dl>
+:rtype&nbsp;1darray</tt></dd></dl>
  <dl><dt><a name="-calculationTriangles"><strong>calculationTriangles</strong></a>(locations)</dt><dd><tt>To&nbsp;confirm&nbsp;the&nbsp;triangle&nbsp;for&nbsp;making&nbsp;delaunay&nbsp;trianglations&nbsp;from&nbsp;locations.<br>
 "triangulation"&nbsp;is&nbsp;class&nbsp;of&nbsp;Delaunay.<br>
 "triangles"&nbsp;is&nbsp;equel&nbsp;to&nbsp;"Delaunay.vertices".&nbsp;<br>
@@ -47,7 +47,7 @@ so&nbsp;that&nbsp;average&nbsp;point&nbsp;50&nbsp;standard&nbsp;deviation&nbsp;1
 :return1&nbsp;triangulation<br>
 :rtype&nbsp;scipy.spatial.qhull.Delaunay<br>
 :return2&nbsp;triangles<br>
-:rtype&nbsp;ndarray</tt></dd></dl>
+:rtype&nbsp;2darray</tt></dd></dl>
  <dl><dt><a name="-detectColor"><strong>detectColor</strong></a>(triangulation, locations, values)</dt><dd><tt>To&nbsp;detect&nbsp;color&nbsp;of&nbsp;triangles&nbsp;from&nbsp;values&nbsp;by&nbsp;checking&nbsp;deviation&nbsp;value&nbsp;<br>
 and&nbsp;draw&nbsp;delaunay&nbsp;trianglations&nbsp;by&nbsp;matplotlib.<br>
 Value&nbsp;is&nbsp;high&nbsp;if&nbsp;it&nbsp;is&nbsp;close&nbsp;to&nbsp;red,&nbsp;value&nbsp;is&nbsp;small&nbsp;if&nbsp;it&nbsp;is&nbsp;close&nbsp;to&nbsp;black.<br>
@@ -58,8 +58,10 @@ Value&nbsp;is&nbsp;high&nbsp;if&nbsp;it&nbsp;is&nbsp;close&nbsp;to&nbsp;red,&nbs
 :type2&nbsp;2darray<br>
 :param3&nbsp;values<br>
 :type3&nbsp;1darray<br>
-:return&nbsp;ax<br>
-:rtype&nbsp;matplotlib.axes._subplots.AxesSubplot</tt></dd></dl>
+:return1&nbsp;ax<br>
+:rtype&nbsp;matplotlib.axes._subplots.AxesSubplot<br>
+:return2&nbsp;colors<br>
+:rtype&nbsp;2darray</tt></dd></dl>
  <dl><dt><a name="-generateRandomJsonData"><strong>generateRandomJsonData</strong></a>(seed=None)</dt><dd><tt>To&nbsp;generate&nbsp;random&nbsp;Json&nbsp;data.<br>
 This&nbsp;return&nbsp;2&nbsp;arrays,&nbsp;"locations"&nbsp;and&nbsp;"values".<br>
 "locations"&nbsp;is&nbsp;two&nbsp;dimention&nbsp;arrays&nbsp;that&nbsp;have&nbsp;x&nbsp;and&nbsp;y&nbsp;coordinate.<br>
@@ -85,12 +87,13 @@ If&nbsp;json&nbsp;data([{"x":x,&nbsp;"y":y,&nbsp;"value":0},...])&nbsp;is&nbsp;r
 :rtype&nbsp;2darray<br>
 :return2&nbsp;values<br>
 :rtype&nbsp;1darray</tt></dd></dl>
- <dl><dt><a name="-plotTriangles"><strong>plotTriangles</strong></a>(locations, triangles, imageName)</dt><dd><tt>To&nbsp;deal&nbsp;with&nbsp;plotting&nbsp;the&nbsp;triangles&nbsp;by&nbsp;matplotlib.<br>
+ <dl><dt><a name="-plotTriangles"><strong>plotTriangles</strong></a>(locations, triangles, imageName)</dt><dd><tt>To&nbsp;deal&nbsp;with&nbsp;plotting&nbsp;the&nbsp;triangles&nbsp;by&nbsp;matplotlib&nbsp;<br>
+and&nbsp;create&nbsp;[imageName].png<br>
 &nbsp;<br>
 :param1&nbsp;locations<br>
 :type1&nbsp;2darray<br>
 :param2&nbsp;triangles<br>
-:type2&nbsp;ndarray<br>
+:type2&nbsp;2darray<br>
 :param3&nbsp;imageName<br>
 :type3&nbsp;str<br>
 :return&nbsp;none</tt></dd></dl>
