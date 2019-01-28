@@ -8,41 +8,45 @@ import json
 import argparse
 
 def generateRandomJsonData(seed=None):
-    """To generate random JsonData.
-    This return array, "locations" and "values".
-    "locations" is two dimention array that have x and y coordinate.
-    "values" is one dimention array that have value of coordinate point
+    """To generate random Json data.
+    This return 2 arrays, "locations" and "values".
+    "locations" is two dimention arrays that have x and y coordinate.
+    "values" is one dimention array that has value of coordinate point.
 
     :param none
     :return1 locations
-    :rtype array
+    :rtype 2darray
     :return2 values
-    :rtype array
+    :rtype 1darray
     """
     randomValue = RandomState(seed)
     # coordinate of locations (locations=[[x,...],[y,...]])
     locations = randomValue.randint(0, 500, size=(2, 100))
-    # print(locations)
-    # print(type(locations))
     # values of locations (values=[0,0,...])
     values = randomValue.randint(0, 1000, size=(100))
-    # print(values)
     return locations, values
 
 
 def getJsonData(jsonFile):
-    """.
+    """To read json data.
+    Json data has 3 keys x, y and value. 
+    (x and y dimention and values of coordinate point)
+    This creates from json data to 2 format arrays.
+    If json data([{"x":x, "y":y, "value":0},...]) is recieved, 
+    2 arrays(locations=[[x,...],[y,...]], values=[0,...]) are created.
+    "locations" is two dimention arrays that have x and y coordinate.
+    "values" is one dimention array that has value of coordinate point.
 
-    :param jsonFile:This file have x and y dimention and values of coordinate point.
-    :type jsondict
-    :return1 none
-    :return2 generateRandomJsonData()
-    :rtype array
+    :param jsonFile
+    :type file(json dict)
+    :return1 locations
+    :rtype 2darray
+    :return2 values
+    :rtype 1darray
     """
     if jsonFile:
         f = open(jsonFile, 'r')
         jsonData = json.load(f)
-        # print(jsonData)
         locations = np.array([[],[]])
         values = np.array([])
 
@@ -56,8 +60,16 @@ def getJsonData(jsonFile):
 
 
 def calculationTriangles(locations):
-    """[Calculation Triangles]
-    Deals with plotting the triangles
+    """To confirm the triangle for making delaunay trianglations from locations.
+    "triangulation" is class of Delaunay.
+    "triangles" is equel to "Delaunay.vertices". 
+
+    :param locations
+    :type 2darray
+    :return1 triangulation
+    :rtype scipy.spatial.qhull.Delaunay
+    :return2 triangles
+    :rtype ndarray
     """
     # triangulation
     triangulation = scipy.spatial.Delaunay(locations.T)
@@ -65,29 +77,48 @@ def calculationTriangles(locations):
     return triangulation, triangles
 
 
-def calculationStandardScore(color_list):
-    score = np.round_(50+10*(color_list-np.average(color_list))/np.std(color_list))
+def calculationStandardScore(colorList):
+    """To calculate deviation value of colorList.
+    Deviation value is that score when adjustment is made 
+    so that average point 50 standard deviation 10.
+
+    :param colorList
+    :type ndarray
+    :return score
+    :rtype ndarray
+    """
+    score = np.round_(50+10*(colorList-np.average(colorList))/np.std(colorList))
     return score
 
 
 def detectColor(triangulation, locations, values):
+    """To detect color of triangles from values by checking deviation value 
+    and draw delaunay trianglations by matplotlib.
+    Value is high if it is close to red, value is small if it is close to black.
+
+    :param1 triangulation
+    :type1 scipy.spatial.qhull.Delaunay
+    :param2 locations
+    :type2 2darray
+    :param3 values
+    :type3 1darray
+    :return ax
+    :rtype matplotlib.axes._subplots.AxesSubplot
+    """
     ax = plt.figure().add_subplot(111)
     def assimVertex(index): return triangulation.points[index]
     triangleSet = map(assimVertex, triangulation.vertices)
     # triangle color
-    # print("Vertices list",triangulation.vertices)
-    # print("Locations",locations)
     index = 0
-    color_list = np.array([])
+    colorList = np.array([])
 
-    # create color_average list roop
+    # create colorAverage list roop
     for trianglePointIndexes in triangulation.simplices:
         colors = values[trianglePointIndexes]
-        # テスト
-        color_average = np.average(colors)
-        color_list = np.append(color_list,color_average)
+        colorAverage = np.average(colors)
+        colorList = np.append(colorList,colorAverage)
 
-    score = calculationStandardScore(color_list)
+    score = calculationStandardScore(colorList)
     # paint color roop
     for trianglePointIndexes in triangulation.simplices:
         triangle = locations.T[trianglePointIndexes]
@@ -109,13 +140,19 @@ def detectColor(triangulation, locations, values):
 
 
 def plotTriangles(locations, triangles, imageName):
-    """plotTriangles
-    Deals with plotting the triangles
+    """To deal with plotting the triangles by matplotlib.
+
+    :param1 locations
+    :type1 2darray
+    :param2 triangles
+    :type2 ndarray
+    :param3 imageName
+    :type3 str
+    :return none
     """
     # liner
     plt.triplot(locations[0],
                 locations[1],
-                #triangles=triangleSet,
                 triangles=triangles,
                 color='black',
                 linewidth=0.5)
@@ -124,7 +161,7 @@ def plotTriangles(locations, triangles, imageName):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
                 prog="delaunayTriangulation.py",
-                usage="python delaunayTriangulation.py -j data/test_data.json -i output/test.png",
+                usage="python delaunayTriangulation.py -j data/testData.json -i output/testData.png",
                 description="colorize the Delaunay figure according to the mean value of the points.",
                 add_help = True
                 )

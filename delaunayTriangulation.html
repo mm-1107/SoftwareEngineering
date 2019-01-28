@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module delaunayTriangulation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>delaunayTriangulation</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/iijimaakari/SoftwareEngineering/SoftwareEngineering/delaunayTriangulation.py">/Users/iijimaakari/SoftwareEngineering/SoftwareEngineering/delaunayTriangulation.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="argparse.html">argparse</a><br>
+<a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td><td width="25%" valign=top><a href="scipy.html">scipy</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-calculationStandardScore"><strong>calculationStandardScore</strong></a>(colorList)</dt><dd><tt>To&nbsp;calculate&nbsp;deviation&nbsp;value&nbsp;of&nbsp;colorList.<br>
+Deviation&nbsp;value&nbsp;is&nbsp;that&nbsp;score&nbsp;when&nbsp;adjustment&nbsp;is&nbsp;made&nbsp;<br>
+so&nbsp;that&nbsp;average&nbsp;point&nbsp;50&nbsp;standard&nbsp;deviation&nbsp;10.<br>
+&nbsp;<br>
+:param&nbsp;colorList<br>
+:type&nbsp;ndarray<br>
+:return&nbsp;score<br>
+:rtype&nbsp;ndarray</tt></dd></dl>
+ <dl><dt><a name="-calculationTriangles"><strong>calculationTriangles</strong></a>(locations)</dt><dd><tt>To&nbsp;confirm&nbsp;the&nbsp;triangle&nbsp;for&nbsp;making&nbsp;delaunay&nbsp;trianglations&nbsp;from&nbsp;locations.<br>
+"triangulation"&nbsp;is&nbsp;class&nbsp;of&nbsp;Delaunay.<br>
+"triangles"&nbsp;is&nbsp;equel&nbsp;to&nbsp;"Delaunay.vertices".&nbsp;<br>
+&nbsp;<br>
+:param&nbsp;locations<br>
+:type&nbsp;2darray<br>
+:return1&nbsp;triangulation<br>
+:rtype&nbsp;scipy.spatial.qhull.Delaunay<br>
+:return2&nbsp;triangles<br>
+:rtype&nbsp;ndarray</tt></dd></dl>
+ <dl><dt><a name="-detectColor"><strong>detectColor</strong></a>(triangulation, locations, values)</dt><dd><tt>To&nbsp;detect&nbsp;color&nbsp;of&nbsp;triangles&nbsp;from&nbsp;values&nbsp;by&nbsp;checking&nbsp;deviation&nbsp;value&nbsp;<br>
+and&nbsp;draw&nbsp;delaunay&nbsp;trianglations&nbsp;by&nbsp;matplotlib.<br>
+Value&nbsp;is&nbsp;high&nbsp;if&nbsp;it&nbsp;is&nbsp;close&nbsp;to&nbsp;red,&nbsp;value&nbsp;is&nbsp;small&nbsp;if&nbsp;it&nbsp;is&nbsp;close&nbsp;to&nbsp;black.<br>
+&nbsp;<br>
+:param1&nbsp;triangulation<br>
+:type1&nbsp;scipy.spatial.qhull.Delaunay<br>
+:param2&nbsp;locations<br>
+:type2&nbsp;2darray<br>
+:param3&nbsp;values<br>
+:type3&nbsp;1darray<br>
+:return&nbsp;ax<br>
+:rtype&nbsp;matplotlib.axes._subplots.AxesSubplot</tt></dd></dl>
+ <dl><dt><a name="-generateRandomJsonData"><strong>generateRandomJsonData</strong></a>(seed=None)</dt><dd><tt>To&nbsp;generate&nbsp;random&nbsp;Json&nbsp;data.<br>
+This&nbsp;return&nbsp;2&nbsp;arrays,&nbsp;"locations"&nbsp;and&nbsp;"values".<br>
+"locations"&nbsp;is&nbsp;two&nbsp;dimention&nbsp;arrays&nbsp;that&nbsp;have&nbsp;x&nbsp;and&nbsp;y&nbsp;coordinate.<br>
+"values"&nbsp;is&nbsp;one&nbsp;dimention&nbsp;array&nbsp;that&nbsp;has&nbsp;value&nbsp;of&nbsp;coordinate&nbsp;point.<br>
+&nbsp;<br>
+:param&nbsp;none<br>
+:return1&nbsp;locations<br>
+:rtype&nbsp;2darray<br>
+:return2&nbsp;values<br>
+:rtype&nbsp;1darray</tt></dd></dl>
+ <dl><dt><a name="-getJsonData"><strong>getJsonData</strong></a>(jsonFile)</dt><dd><tt>To&nbsp;read&nbsp;json&nbsp;data.<br>
+Json&nbsp;data&nbsp;has&nbsp;3&nbsp;keys&nbsp;x,&nbsp;y&nbsp;and&nbsp;value.&nbsp;<br>
+(x&nbsp;and&nbsp;y&nbsp;dimention&nbsp;and&nbsp;values&nbsp;of&nbsp;coordinate&nbsp;point)<br>
+This&nbsp;creates&nbsp;from&nbsp;json&nbsp;data&nbsp;to&nbsp;2&nbsp;format&nbsp;arrays.<br>
+If&nbsp;json&nbsp;data([{"x":x,&nbsp;"y":y,&nbsp;"value":0},...])&nbsp;is&nbsp;recieved,&nbsp;<br>
+2&nbsp;arrays(locations=[[x,...],[y,...]],&nbsp;values=[0,...])&nbsp;are&nbsp;created.<br>
+"locations"&nbsp;is&nbsp;two&nbsp;dimention&nbsp;arrays&nbsp;that&nbsp;have&nbsp;x&nbsp;and&nbsp;y&nbsp;coordinate.<br>
+"values"&nbsp;is&nbsp;one&nbsp;dimention&nbsp;array&nbsp;that&nbsp;has&nbsp;value&nbsp;of&nbsp;coordinate&nbsp;point.<br>
+&nbsp;<br>
+:param&nbsp;jsonFile<br>
+:type&nbsp;file(json&nbsp;dict)<br>
+:return1&nbsp;locations<br>
+:rtype&nbsp;2darray<br>
+:return2&nbsp;values<br>
+:rtype&nbsp;1darray</tt></dd></dl>
+ <dl><dt><a name="-plotTriangles"><strong>plotTriangles</strong></a>(locations, triangles, imageName)</dt><dd><tt>To&nbsp;deal&nbsp;with&nbsp;plotting&nbsp;the&nbsp;triangles&nbsp;by&nbsp;matplotlib.<br>
+&nbsp;<br>
+:param1&nbsp;locations<br>
+:type1&nbsp;2darray<br>
+:param2&nbsp;triangles<br>
+:type2&nbsp;ndarray<br>
+:param3&nbsp;imageName<br>
+:type3&nbsp;str<br>
+:return&nbsp;none</tt></dd></dl>
+</td></tr></table>
+</body></html>

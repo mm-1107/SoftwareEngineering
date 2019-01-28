@@ -107,16 +107,15 @@ class delaunayTriangulation(unittest.TestCase):
         self.assertEqual(score,actual)
 
  
-    # def test_detectColor(self):
-    #     """test method for detectColor
-    #     """
-    #     actual = detectColor(triangulation, locations, values)
-    #
-    # def test_plotTriangles(self):
-    #     """test method for plotTriangles
-    #     """
-    #     plotTriangles(locations, triangles, imageName)
-    #   '''
+    def test_detectColor(self):
+        """test method for detectColor
+        """
+        actual = detectColor(triangulation, locations, values)
+    
+    def test_plotTriangles(self):
+        """test method for plotTriangles
+        """
+        plotTriangles(locations, triangles, imageName)
 
 if __name__ == "__main__":
     unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='delaunay'))
