@@ -134,7 +134,7 @@ class delaunayTriangulation(unittest.TestCase):
         actualScore = calculationStandardScore(colorList)
         actualScoreLength = len(actualScore)
         expectedScore = np.array([36., 40., 58., 53., 62.])
-        expectedScoreLength = len(expectedScore)x
+        expectedScoreLength = len(expectedScore)
         self.assertEqual(expectedScore.all(),actualScore.all())
         self.assertEqual(expectedScoreLength,actualScoreLength)
 
