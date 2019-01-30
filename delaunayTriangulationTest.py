@@ -125,17 +125,17 @@ class delaunayTriangulation(unittest.TestCase):
         self.assertEqual(actualTriangulationLength, expectedTrianglesLength)
         self.assertEqual(actualTrianglesLength, expectedTrianglesLength)
     
-    def calculationStandardScore(self):
+    def test_calculationStandardScore(self):
         """test method for calculationStandardScore
         1.check calculation
         2.check length
         """
-        colorList = [5., 10., 30., 25., 35.]
-        actualScore = calculationStandardScore(color_list)
+        colorList = np.array([5., 10., 30., 25., 35.])
+        actualScore = calculationStandardScore(colorList)
         actualScoreLength = len(actualScore)
-        expectedScore = [36., 41., 58., 53., 62.]
-        expectedScoreLength = len(expectedScore)
-        self.assertEqual(expectedScore,actualScore)
+        expectedScore = np.array([36., 40., 58., 53., 62.])
+        expectedScoreLength = len(expectedScore)x
+        self.assertEqual(expectedScore.all(),actualScore.all())
         self.assertEqual(expectedScoreLength,actualScoreLength)
 
     def test_detectColor(self):
@@ -167,7 +167,6 @@ class delaunayTriangulation(unittest.TestCase):
         plotTriangles(locations, triangles, expectedImageName)
         self.assertEqual(os.path.exists("output/unitTestExpectedImage.png"),True)
         os.remove("output/unitTestExpectedImage.png")
-        
 
 if __name__ == "__main__":
     unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='delaunay'))
