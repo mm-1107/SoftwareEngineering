@@ -1,4 +1,5 @@
-# Software Engineering 2018
+# Software Engineering 2018 [![Build Status](https://travis-ci.org/mm-1107/SoftwareEngineering.svg?branch=master)](https://travis-ci.org/mm-1107/SoftwareEngineering)
+
 A project to try to make a script to colorize the Delaunay figure according to the mean value of the points.  
 Value is high if it is close to red, value is small if it is close to black.
 
