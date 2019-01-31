@@ -1,5 +1,8 @@
 cycler==0.10.0
+html-testRunner==1.1.2
+Jinja2==2.9.5
 kiwisolver==1.0.1
+MarkupSafe==1.1.0
 matplotlib==3.0.1
 numpy==1.15.3
 pyparsing==2.2.2
