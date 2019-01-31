@@ -71,6 +71,7 @@ _※Please use double quotation in key because error occurs when using single qu
 SoftwareEngineering /
 ┣ delaunayTriangulation.py      # Delaunay diagram creation script
 ┣ delaunayTriangulationTest.py  # Test of delaunay diagram creation script
+┣ delaunayTriangulation.html    # pydoc
 ┣ fetchData.py                  # Create format json data by Scraping
 ┣ requirements.txt              # When necessary for environment construction
 ┣ data /
