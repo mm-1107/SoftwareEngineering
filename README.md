@@ -21,8 +21,8 @@ For example, if you use data/productionData1.json that value is population ratio
 **<font color="blue">Blue</font> : low**
 
 ## Member
-- 1620501 Akari Iijima
-- 1620536 Marin Matsumoto
+- Akari Iijima
+- Marin Matsumoto
 
 ## Version
 - python 3.6.0
@@ -89,3 +89,14 @@ SoftwareEngineering /
 
 
 ```
+
+## References
+
+Algorithm:         http://www.ics.kagoshima-u.ac.jp/~fuchida/edu/algorithm/voronoi-diagram/voronoi-diagram.html
+Population Data1:  http://area-info.jpn.org/FornPerPop130001.html
+Population Data2:  http://area-info.jpn.org/FornPerPop.html
+Map data1:         http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm
+Map data2:         http://www.gsi.go.jp/KOKUJYOHO/CENTER/zenken.htm
+Standard score:    http://programming.blogo.jp/python/numpy/standard_score
+Unit test:         https://qiita.com/aomidro/items/3e3449fde924893f18ca
+
