@@ -89,6 +89,11 @@ SoftwareEngineering /
 
 ```
 
+## Implementation
+The processing flow is shown below.
+
+![Alt text](/output/implementation.jpg)
+
 ## References
 
 Algorithm:         http://www.ics.kagoshima-u.ac.jp/~fuchida/edu/algorithm/voronoi-diagram/voronoi-diagram.html  
