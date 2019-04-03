@@ -32,10 +32,9 @@ For example, if you use data/productionData1.json that value is population ratio
 ```
 [~/SoftwareEngineering$] python -m venv env
 [~/SoftwareEngineering$] source env/bin/activate
-[~/SoftwareEngineering$] pip install -r requirements.txt
+(env)[~/SoftwareEngineering$] pip install -r requirements.txt
 ```
 - If an error occurs in matplotlib [HERE](https://qiita.com/Kodaira_/items/1a3b801c7a5a41c9ce49)
-- Please install scipy, RandomState, numpy, matplotlib, sys, json if necessary.
 
 ## How to create Delaunay figure
 1. Prepare a json file with x, y, value in key.  
@@ -99,4 +98,3 @@ Map data1:         http://www.gsi.go.jp/KOKUJYOHO/CENTER/kendata/tokyo_heso.htm
 Map data2:         http://www.gsi.go.jp/KOKUJYOHO/CENTER/zenken.htm  
 Standard score:    http://programming.blogo.jp/python/numpy/standard_score  
 Unit test:         https://qiita.com/aomidro/items/3e3449fde924893f18ca  
-
